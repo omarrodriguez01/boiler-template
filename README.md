@@ -47,4 +47,4 @@ You will submit this homework in 2 steps:
 - Create a PR, your description should include your name and studentId (matricula) along with a screenshot of the ERD Diagram you based off your model
 - Submit your PR link on the canvas submission, so I can give you your grade
 
-*remeber I will download your code an test it. Your models need to run successfully as well as your seeders in order to get all the points. Also, it is very important you commit at every stage, you should have at least 3 commits in your branch. These commits are your evidence to show me you followed each step
+__Remember I will download your code an test it__ Your models need to run successfully as well as your seeders in order to get all the points. Also, it is very important you commit at every stage, you should have at least 3 commits in your branch. These commits are your evidence to show me you followed each step
