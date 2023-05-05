@@ -1,7 +1,7 @@
 # ORMs Homework
 
 ## Bienvenido
-The purpose of this homework is to make sure you get a full understanding of what an ORM is.\
+The purpose of this homework is to make sure you get a full understanding of what an ORM is.
 
 Here are your instructions to run the repository:
 - Make sure you have Docker Desktop installed in your machine
@@ -17,7 +17,8 @@ After you are done, your code should be running at http://localhost:3000/ (if yo
 Your submission of your homework will be through creating a Pull Request
 - checkout a new branch with `git checkout -b {your name}/{name of your DB Model}`
 ### Add your model
-- Your first task will be to add the model of the DB model of your choice in the schema.prisma file (no timestamps fields)
+Your first task will be to add the model of the DB model of your choice in the schema.prisma file (no timestamps fields)
+- Add your models in `prisma/schema.prisma`
 - Once you have finished you will push it to your DB with `npx prisma push`
 - Once you made sure you had no issues pushing to your db commit your model to your branch with
     - `git add .`
