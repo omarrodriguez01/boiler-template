@@ -15,10 +15,12 @@ After you are done, your code should be running at http://localhost:3000/ (if yo
 
 ## Your Task
 Your submission of your homework will be through creating a Pull Request
+__MAKE SURE YOU CREATE A BRANCH FIRST__
 - checkout a new branch with `git checkout -b {your name}/{name of your DB Model}`
 ### Add your model
-Your first task will be to add the model of the DB model of your choice in the schema.prisma file (no timestamps fields)
+Your first task will be to add the model of the DB model of your choice in the schema.prisma file with no timestamps fields (createdAt, updatedAt)
 - Add your models in `prisma/schema.prisma`
+- Run  `npx prisma generate` to load up Prisma with your DB
 - Once you have finished you will push it to your DB with `npx prisma push`
 - Once you made sure you had no issues pushing to your db commit your model to your branch with
     - `git add .`
@@ -26,8 +28,8 @@ Your first task will be to add the model of the DB model of your choice in the s
     - `git push -u origin {your name}/{name of your DB Model}`
 ### Add Migrations
 - Now it's time to add a migration to your model that adds a createdAt and updatedAt flag to all your models
-- Run `npx prisma migrate dev`, and this will generate your first migration folder and file, it will ask you for a name for your first migration which will be the same query for your initial models and will ask you if it's ok to override your database, type `y`
-- Now you can edit your model to include the timestampz flags
+- Run `npx prisma migrate dev`, and this will generate your first migration folder and file,it will ask you if it's ok to override your database, type `y`, then it will ask you for a name for your first migration which will be the same query for your initial models.
+- Now you can edit your model to include the timestamps flags (createdAt, updatedAt) to all your models
 - Now you can add your migration with `npx prisma migrate dev --name add-timestamps-flags` this will genereate the migration file to add the flags
 - execute your migration with  `npx prisma migrate dev`
 - commit and and push your code
@@ -36,11 +38,14 @@ Your first task will be to add the model of the DB model of your choice in the s
     - `git push`
 
 ### Add Seeders
-The last part of your homework will be to add seeders to all of your tables, the project has already preloaded the folder to add your seeders and a file to run to use seeders.
+The last part of your homework will be to add seeders to all of your tables, the project has already preloaded the folder to add your seeders and a file to run and use seeders.
 - Create at least 3 objects per table per seeder. Use studentSeeder.ts as a guide
 - Import all of your seeder functions to seed file and use the commented lines as guide
 - Run your seeders with `npx prisma db seed`
-- Once your seeders have ran and have been added to your db, commit and push your changes
+- Once your seeders have ran and have been added to your db, commit and push your changes:
+    - `git add .`
+    - `git commit -m "added timestampz"`
+    - `git push`
 
 ### Submission
 You will submit this homework in 2 steps:
