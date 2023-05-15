@@ -18,6 +18,8 @@ model User {
   subscriptionId  Int
   subscription_id String
   playlists       Playlist[]
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @default(now()) @updatedAt
 }
 
 model Playlist {
@@ -27,14 +29,18 @@ model Playlist {
   name         String
   songs        Song[]         @relation("PlaylistSong")
   PlaylistSong PlaylistSong[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @default(now()) @updatedAt
 }
 
 model Subscription {
-  id          Int    @id
+  id          Int      @id
   type        String
   price       Float
   description String
   users       User[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
 }
 
 model Song {
@@ -47,6 +53,8 @@ model Song {
   albumId      Int?
   playlists    Playlist[]     @relation("PlaylistSong")
   PlaylistSong PlaylistSong[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @default(now()) @updatedAt
 }
 
 model Album {
@@ -56,14 +64,18 @@ model Album {
   artistId    Int
   releaseDate DateTime?
   Song        Song[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
 }
 
 model Artist {
-  id        Int     @id
+  id        Int      @id
   name      String
   biography String?
   albums    Album[]
   songs     Song[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model PlaylistSong {
@@ -71,6 +83,8 @@ model PlaylistSong {
   playlistId Int
   song       Song     @relation(fields: [songId], references: [id])
   songId     Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
 
   @@id([playlistId, songId])
 }
