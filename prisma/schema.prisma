@@ -22,10 +22,7 @@ model Patient {
   emergencyContact String
   appointments     Appointment[]
   medicalRecords   MedicalRecord[]
-  admissions       Admission[]
   Prescription     Prescription[]
-  createdAt        DateTime        @default(now())
-  updatedAt        DateTime        @updatedAt
 }
 
 model Doctor {
@@ -37,8 +34,6 @@ model Doctor {
   availability  String
   appointments  Appointment[]
   prescriptions Prescription[]
-  createdAt        DateTime        @default(now())
-  updatedAt        DateTime        @updatedAt
 }
 
 model Appointment {
@@ -50,8 +45,6 @@ model Appointment {
   patientId Int
   doctor    Doctor   @relation(fields: [doctorId], references: [id])
   doctorId  Int
-  createdAt        DateTime        @default(now())
-  updatedAt        DateTime        @updatedAt
 }
 
 model MedicalRecord {
@@ -61,8 +54,6 @@ model MedicalRecord {
   treatment String?
   patient   Patient  @relation(fields: [patientId], references: [id])
   patientId Int
-  createdAt        DateTime        @default(now())
-  updatedAt        DateTime        @updatedAt
 }
 
 model Prescription {
@@ -75,29 +66,4 @@ model Prescription {
   patientId      Int
   doctor         Doctor   @relation(fields: [doctorId], references: [id])
   doctorId       Int
-  createdAt        DateTime        @default(now())
-  updatedAt        DateTime        @updatedAt
-}
-
-model Ward {
-  id         Int         @id @default(autoincrement())
-  name       String
-  location   String
-  numBeds    Int
-  admissions Admission[]
-  createdAt        DateTime        @default(now())
-  updatedAt        DateTime        @updatedAt
-}
-
-model Admission {
-  id              Int       @id @default(autoincrement())
-  dateOfAdmission DateTime
-  dateOfDischarge DateTime?
-  reason          String
-  patient         Patient   @relation(fields: [patientId], references: [id])
-  patientId       Int
-  ward            Ward      @relation(fields: [wardId], references: [id])
-  wardId          Int
-  createdAt        DateTime        @default(now())
-  updatedAt        DateTime        @updatedAt
 }
