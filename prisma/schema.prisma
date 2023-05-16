@@ -9,3 +9,76 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Paciente {
+  id_paciente Int     @id @default(autoincrement())
+  nombre      String
+  fecha_nacimiento  DateTime
+  genero      String
+  telefono    String?
+  correo_electronico  String?
+  direccion   String?
+  citas       Cita[]
+  historial_medico HistorialMedico[]
+  admisiones  AdmisionPaciente[]
+}
+
+model Doctor {
+  id_doctor   Int    @id @default(autoincrement())
+  nombre      String
+  especialidad String
+  telefono    String?
+  correo_electronico String?
+  citas       Cita[]
+}
+
+model Enfermera {
+  id_enfermera Int    @id @default(autoincrement())
+  nombre      String
+  telefono    String?
+  correo_electronico String?
+}
+
+model Cita {
+  id_cita     Int     @id @default(autoincrement())
+  id_paciente Int
+  id_doctor   Int
+  fecha_hora  DateTime
+  duracion_estimada Int
+  paciente    Paciente @relation(fields: [id_paciente], references: [id_paciente])
+  doctor      Doctor   @relation(fields: [id_doctor], references: [id_doctor])
+}
+
+model HistorialMedico {
+  id_historial Int    @id @default(autoincrement())
+  id_paciente  Int
+  diagnostico  String
+  tratamiento  String?
+  medicamentos String?
+  paciente     Paciente @relation(fields: [id_paciente], references: [id_paciente])
+}
+
+model Cama {
+  id_cama     Int     @id @default(autoincrement())
+  numero_cama Int
+  habitacion  String
+  ocupada     Boolean
+  admisiones  AdmisionPaciente[]
+}
+
+model AdmisionPaciente {
+  id_admision Int     @id @default(autoincrement())
+  id_paciente Int
+  id_cama     Int
+  fecha_ingreso DateTime
+  fecha_alta  DateTime?
+  paciente    Paciente @relation(fields: [id_paciente], references: [id_paciente])
+  cama        Cama    @relation(fields: [id_cama], references: [id_cama])
+}
+
+model EquipoMedico {
+  id_equipo         Int     @id @default(autoincrement())
+  nombre            String
+  descripcion       String?
+  ubicacion_actual  String
+}
