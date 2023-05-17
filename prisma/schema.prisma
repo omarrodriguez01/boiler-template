@@ -9,3 +9,25 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Autor {
+  id    Int    @id @default(autoincrement())
+  nombre String
+  libros Libro[]
+}
+
+model Libro {
+  id       Int        @id @default(autoincrement())
+  titulo   String
+  autor_id Int
+  stock    Int
+  autor    Autor      @relation(fields: [autor_id], references: [id])
+  existencia Existencia[]
+}
+
+model Existencia {
+  id       Int     @id @default(autoincrement())
+  libro_id Int
+  ubicacion String
+  libro    Libro   @relation(fields: [libro_id], references: [id])
+}

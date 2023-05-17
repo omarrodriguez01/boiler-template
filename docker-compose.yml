@@ -4,6 +4,7 @@ services:
     restart: always
     build:
       context: .
+      dockerfile: Dockerfile
     environment:
       DB_USER: postgres
       DB_PASSWORD: postgres
