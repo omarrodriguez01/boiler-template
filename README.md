@@ -44,7 +44,7 @@ The last part of your homework will be to add seeders to all of your tables, the
 - Run your seeders with `npx prisma db seed`
 - Once your seeders have ran and have been added to your db, commit and push your changes:
     - `git add .`
-    - `git commit -m "added timestampz"`
+    - `git commit -m "added seeders"`
     - `git push`
 
 ### Submission
