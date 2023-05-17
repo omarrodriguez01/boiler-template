@@ -21,7 +21,7 @@ __MAKE SURE YOU CREATE A BRANCH FIRST__
 Your first task will be to add the model of the DB model of your choice in the schema.prisma file with no timestamps fields (createdAt, updatedAt)
 - Add your models in `prisma/schema.prisma`
 - Run  `npx prisma generate` to load up Prisma with your DB
-- Once you have finished you will push it to your DB with `npx prisma push`
+- Once you have finished you will push it to your DB with `npx prisma db push`
 - Once you made sure you had no issues pushing to your db commit your model to your branch with
     - `git add .`
     - `git commit -m "added initial model"`
