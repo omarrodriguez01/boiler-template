@@ -24,10 +24,10 @@ model Customers {
 
 model Employees {
   employee_id        Int            @id @default(autoincrement())
-  employeer_name     String
+  employee_name     String
   employee_email     String
   employee_phone     String
-  customer_specialty String
+  employee_specialty String
   Maintenances       Maintenances[]
 
   createdAt         DateTime            @default(now())
