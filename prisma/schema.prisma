@@ -21,8 +21,8 @@ model Paciente {
   citas       Cita[]
   historial_medico HistorialMedico[]
   admisiones  AdmisionPaciente[]
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Doctor {
@@ -32,8 +32,8 @@ model Doctor {
   telefono    String?
   correo_electronico String?
   citas       Cita[]
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Enfermera {
@@ -41,8 +41,8 @@ model Enfermera {
   nombre      String
   telefono    String?
   correo_electronico String?
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Cita {
@@ -53,8 +53,8 @@ model Cita {
   duracion_estimada Int
   paciente    Paciente @relation(fields: [id_paciente], references: [id_paciente])
   doctor      Doctor   @relation(fields: [id_doctor], references: [id_doctor])
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model HistorialMedico {
@@ -64,8 +64,8 @@ model HistorialMedico {
   tratamiento  String?
   medicamentos String?
   paciente     Paciente @relation(fields: [id_paciente], references: [id_paciente])
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Cama {
@@ -74,8 +74,8 @@ model Cama {
   habitacion  String
   ocupada     Boolean
   admisiones  AdmisionPaciente[]
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model AdmisionPaciente {
@@ -86,8 +86,8 @@ model AdmisionPaciente {
   fecha_alta  DateTime?
   paciente    Paciente @relation(fields: [id_paciente], references: [id_paciente])
   cama        Cama    @relation(fields: [id_cama], references: [id_cama])
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model EquipoMedico {
@@ -95,6 +95,6 @@ model EquipoMedico {
   nombre            String
   descripcion       String?
   ubicacion_actual  String
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
