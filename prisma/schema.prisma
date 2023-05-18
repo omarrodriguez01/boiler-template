@@ -17,6 +17,9 @@ model Customers {
   customer_phone   String
   customer_address String
   Maintenances     Maintenances[]
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
 }
 
 model Employees {
@@ -26,6 +29,9 @@ model Employees {
   employee_phone     String
   customer_specialty String
   Maintenances       Maintenances[]
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
 }
 
 model Cars {
@@ -37,6 +43,9 @@ model Cars {
   car_price    Int
   Maintenances Maintenances[]
   Spare_Parts  Spare_Parts[]
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
 }
 
 model Maintenances {
@@ -49,6 +58,9 @@ model Maintenances {
   employee_id          Int
   description          String
   maintenance_date     DateTime
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
 }
 
 model Spare_Parts {
@@ -58,4 +70,7 @@ model Spare_Parts {
   spare_part_name  String
   spare_part_price Int
   spare_part_stock Int
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
 }
