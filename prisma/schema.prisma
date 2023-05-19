@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,4 +5,44 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Autor {
+  autor_id      Int      @id @default(autoincrement())
+  nombre        String
+  nacionalidad  String?
+  libros        Libro[]
+}
+
+model Editorial {
+  editorial_id Int      @id @default(autoincrement())
+  nombre       String
+  libros       Libro[]
+}
+
+model Libro {
+  libro_id     Int      @id @default(autoincrement())
+  titulo       String
+  editorial_id Int
+  genero_id    Int
+  autor_id     Int
+  editorial    Editorial @relation(fields: [editorial_id], references: [editorial_id])
+  autor        Autor     @relation(fields: [autor_id], references: [autor_id])
+  copias       Copia[]
+}
+
+model Copia {
+  copia_id   Int     @id @default(autoincrement())
+  libro_id   Int
+  estado     String
+  libro      Libro   @relation(fields: [libro_id], references: [libro_id])
+  pedidos    Pedido[]
+}
+
+model Pedido {
+  pedido_id     Int    @id @default(autoincrement())
+  copia_id      Int
+  fecha_pedido  DateTime
+  fecha_entrega DateTime?
+  copia         Copia  @relation(fields: [copia_id], references: [copia_id])
 }
