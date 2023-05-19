@@ -11,10 +11,12 @@ datasource db {
 }
 
 model Cine {
-  id        Int    @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   nombre    String
   direccion String
-  salas     Sala[] @relation("CineSala")
+  salas     Sala[]   @relation("CineSala")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Sala {
@@ -24,12 +26,16 @@ model Sala {
   id_cine   Int
   cine      Cine      @relation("CineSala", fields: [id_cine], references: [id])
   funciones Funcion[] @relation("SalaFuncion")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
 }
 
 model Genero {
   id        Int        @id @default(autoincrement())
   nombre    String
   peliculas Pelicula[] @relation("PeliculaGenero")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now()) @updatedAt
 }
 
 model Pelicula {
@@ -40,6 +46,8 @@ model Pelicula {
   id_genero        Int
   genero           Genero    @relation("PeliculaGenero", fields: [id_genero], references: [id])
   funciones        Funcion[] @relation("PeliculaFuncion")
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @default(now()) @updatedAt
 }
 
 model Funcion {
@@ -50,23 +58,29 @@ model Funcion {
   pelicula    Pelicula @relation("PeliculaFuncion", fields: [id_pelicula], references: [id])
   sala        Sala     @relation("SalaFuncion", fields: [id_sala], references: [id])
   boletos     Boleto[] @relation("FuncionBoleto")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
 }
 
 model Boleto {
-  id         Int     @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   id_funcion Int
   id_cliente Int
   asiento    String
   precio     Float
-  funcion    Funcion @relation("FuncionBoleto", fields: [id_funcion], references: [id])
-  cliente    Cliente @relation("ClienteBoleto", fields: [id_cliente], references: [id])
+  funcion    Funcion  @relation("FuncionBoleto", fields: [id_funcion], references: [id])
+  cliente    Cliente  @relation("ClienteBoleto", fields: [id_cliente], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
 }
 
 model Cliente {
-  id       Int      @id @default(autoincrement())
-  nombre   String
-  apellido String
-  correo   String?
-  telefono String
-  boletos  Boleto[] @relation("ClienteBoleto")
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  apellido  String
+  correo    String?
+  telefono  String
+  boletos   Boleto[] @relation("ClienteBoleto")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
