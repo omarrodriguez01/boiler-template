@@ -9,3 +9,71 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Contribuyente {
+  id        Int       @id @default(autoincrement())
+  rfc       String
+  nombre    String
+  direccion String
+  facturas  Factura[]
+  pagos     Pago[]
+}
+
+model Factura {
+  id              Int              @id @default(autoincrement())
+  contribuyente   Contribuyente    @relation(fields: [contribuyenteId], references: [id])
+  contribuyenteId Int
+  fecha           DateTime
+  total           Float
+  iva             Float
+  descuento       Float?
+  subtotal        Float
+  impuestos       Impuesto[]
+  detalleFacturas DetalleFactura[]
+}
+
+model Pago {
+  id              Int           @id @default(autoincrement())
+  contribuyente   Contribuyente @relation(fields: [contribuyenteId], references: [id])
+  contribuyenteId Int
+  fechaPago       DateTime
+  montoPagado     Float
+  detallePagos    DetallePago[]
+  retenciones     Retencion[]
+}
+
+model DetallePago {
+  id        Int      @id @default(autoincrement()) 
+  pagoId    Int
+  concepto  String
+  monto     Float
+  facturaId Int?
+  pago      Pago     @relation(fields: [pagoId], references: [id])
+}
+
+model Retencion {
+  id     Int    @id @default(autoincrement())
+  pagoId Int
+  tipo   String
+  tasa   Float
+  monto  Float
+  pago   Pago   @relation(fields: [pagoId], references: [id])
+}
+
+model DetalleFactura {
+  id             Int     @id @default(autoincrement())
+  facturaId      Int
+  producto       String
+  cantidad       Int
+  precioUnitario Float
+  factura        Factura @relation(fields: [facturaId], references: [id])
+}
+
+model Impuesto {
+  id        Int     @id @default(autoincrement())
+  facturaId Int
+  tipo      String
+  tasa      Float
+  monto     Float
+  factura   Factura @relation(fields: [facturaId], references: [id])
+}
