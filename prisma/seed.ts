@@ -13,7 +13,8 @@ async function main() {
      await empleadosSeeder();
      await productosMenuSeeder(); 
      await ordenesSeeder(); 
-     await ordenesItemsSeeder(); 
+     await ordenesItemsSeeder();
+     //await studentSeeder();  
 }
 main()
   .then(async () => {
