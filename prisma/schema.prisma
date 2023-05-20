@@ -16,7 +16,11 @@ model Paciente {
   apellido        String
   fechaNacimiento DateTime
   genero          String
-  consultas       Consulta[]
+  direccion       String
+  telefono        String
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  Consulta        Consulta[]
 }
 
 model Doctor {
@@ -25,7 +29,10 @@ model Doctor {
   apellido     String
   especialidad String
   telefono     String
-  consultas    Consulta[]
+  consultorio  String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  Consulta     Consulta[]
 }
 
 model Consulta {
@@ -36,14 +43,18 @@ model Consulta {
   pacienteId Int
   fecha      DateTime
   hora       String
-  resultados Resultado[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  Resultado  Resultado[]
 }
 
 model Examen {
   id          Int         @id @default(autoincrement())
   nombre      String
   descripcion String
-  resultados  Resultado[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  Resultado   Resultado[]
 }
 
 model Resultado {
@@ -54,4 +65,6 @@ model Resultado {
   examenId   Int
   valor      Float
   unidad     String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
