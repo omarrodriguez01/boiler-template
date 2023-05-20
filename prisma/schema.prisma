@@ -9,3 +9,51 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Author {
+  id           Int        @id @default(autoincrement())
+  name         String
+  bio          String?
+  birthDate    DateTime?
+  books        Book[]
+}
+
+model Book {
+  id           Int        @id @default(autoincrement())
+  title        String
+  author       Author     @relation(fields: [authorId], references: [id])
+  authorId     Int
+  genres       Genre[]
+  editorial    Editorial? @relation(fields: [editorialId], references: [id])
+  editorialId  Int?
+  loans        Loan[]
+}
+
+model Loan {
+  id          Int       @id @default(autoincrement())
+  book        Book      @relation(fields: [bookId], references: [id])
+  bookId      Int
+  startDate   DateTime
+  endDate     DateTime?
+  person      Person?   @relation(fields: [personId], references: [id])
+  personId    Int?
+}
+
+model Genre {
+  id           Int        @id @default(autoincrement())
+  name         String
+  books        Book[]
+}
+
+model Editorial {
+  id           Int        @id @default(autoincrement())
+  name         String
+  books        Book[]
+}
+
+
+model Person {
+  id           Int        @id @default(autoincrement())
+  name         String
+  loans        Loan[]
+}
