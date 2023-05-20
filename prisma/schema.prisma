@@ -9,3 +9,109 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model user {
+  id              Int       @id @default(autoincrement()) @unique
+  name            String
+  birthDate       String
+  email           String
+  photo           String
+  description     String
+  movies          movieUser[]
+  series          seriesUser[]
+  family          belongsTo[]
+}
+
+model series {
+  id              Int       @id @default(autoincrement()) @unique
+  name            String
+  description     String
+  genre           String
+  rating          Int  
+  photo           String
+  releaseYear     String
+  seasons         season[]
+  users           seriesUser[]
+}
+
+model season {
+  id              Int       @id @default(autoincrement()) @unique
+  property        series    @relation(fields: [seriesId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  seriesId        Int
+  episodes        video[]
+  seasonName      String
+}
+
+model video {
+  id              Int       @id @default(autoincrement()) @unique
+  name            String
+  releaseDate     String
+  time            String
+  genre           String
+  rating          Int  
+  photo           String
+  description     String
+  artist          involment[]
+  belonging       season  @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  seasonId        Int
+  movies          movieUser[]
+}
+
+model artist {
+  id              Int       @id @default(autoincrement()) @unique
+  name            String
+  birthDate       String
+  originPlace     String
+  photo           String
+  video           involment[]
+}
+
+model involment {
+  participation   video  @relation(fields: [videoId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  videoId        Int
+  person          artist  @relation(fields: [artistId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  artistId       Int
+  role            String
+
+  @@id([videoId, artistId])
+}
+
+model movieUser {
+  movie           video  @relation(fields: [movieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  movieId         Int
+  users           user  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId          Int
+  isLiked         Boolean   @default(false)
+  isDisliked      Boolean   @default(false)
+  inWatchlist     Boolean   @default(false)
+
+  @@id([movieId, userId])
+}
+
+model seriesUser {
+  seriess         series  @relation(fields: [seriesId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  seriesId        Int
+  users           user  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId          Int
+  isLiked         Boolean   @default(false)
+  isDisliked      Boolean   @default(false)
+  inWatchlist     Boolean   @default(false)
+
+  @@id([seriesId, userId])
+}
+
+model family {
+  id              Int       @id @default(autoincrement()) @unique
+  email           String
+  family          belongsTo[]
+}
+
+model belongsTo {
+  families        family  @relation(fields: [familyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  familyId        Int
+  users           user  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId          Int
+  isHead          Boolean   @default(false)
+
+  @@id([familyId, userId])
+}
