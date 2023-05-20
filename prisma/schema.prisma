@@ -20,6 +20,8 @@ model user {
   movies          movieUser[]
   series          seriesUser[]
   family          belongsTo[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
 
 model series {
@@ -29,9 +31,11 @@ model series {
   genre           String
   rating          Int  
   photo           String
-  releaseYear     String
+  releaseDate     DateTime
   seasons         season[]
   users           seriesUser[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
 
 model season {
@@ -40,12 +44,14 @@ model season {
   seriesId        Int
   episodes        video[]
   seasonName      String
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
 
 model video {
   id              Int       @id @default(autoincrement()) @unique
   name            String
-  releaseDate     String
+  releaseDate     DateTime
   time            String
   genre           String
   rating          Int  
@@ -55,23 +61,29 @@ model video {
   belonging       season  @relation(fields: [seasonId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   seasonId        Int
   movies          movieUser[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
 
 model artist {
   id              Int       @id @default(autoincrement()) @unique
   name            String
-  birthDate       String
+  birthDate       DateTime
   originPlace     String
   photo           String
   video           involment[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
 
 model involment {
   participation   video  @relation(fields: [videoId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  videoId        Int
+  videoId         Int
   person          artist  @relation(fields: [artistId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  artistId       Int
+  artistId        Int
   role            String
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
   @@id([videoId, artistId])
 }
@@ -84,6 +96,8 @@ model movieUser {
   isLiked         Boolean   @default(false)
   isDisliked      Boolean   @default(false)
   inWatchlist     Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
   @@id([movieId, userId])
 }
@@ -96,6 +110,8 @@ model seriesUser {
   isLiked         Boolean   @default(false)
   isDisliked      Boolean   @default(false)
   inWatchlist     Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
   @@id([seriesId, userId])
 }
@@ -104,6 +120,8 @@ model family {
   id              Int       @id @default(autoincrement()) @unique
   email           String
   family          belongsTo[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
 
 model belongsTo {
@@ -112,6 +130,8 @@ model belongsTo {
   users           user  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId          Int
   isHead          Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
   @@id([familyId, userId])
 }
