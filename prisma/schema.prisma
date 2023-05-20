@@ -8,34 +8,42 @@ datasource db {
 }
 
 model Autor {
-  autor_id      Int      @id @default(autoincrement())
+  autor_id      Int        @id @default(autoincrement())
   nombre        String
   nacionalidad  String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
   libros        Libro[]
 }
 
 model Editorial {
-  editorial_id Int      @id @default(autoincrement())
+  editorial_id Int        @id @default(autoincrement())
   nombre       String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
   libros       Libro[]
 }
 
 model Libro {
-  libro_id     Int      @id @default(autoincrement())
+  libro_id     Int        @id @default(autoincrement())
   titulo       String
   editorial_id Int
   genero_id    Int
   autor_id     Int
-  editorial    Editorial @relation(fields: [editorial_id], references: [editorial_id])
-  autor        Autor     @relation(fields: [autor_id], references: [autor_id])
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  editorial    Editorial  @relation(fields: [editorial_id], references: [editorial_id])
+  autor        Autor      @relation(fields: [autor_id], references: [autor_id])
   copias       Copia[]
 }
 
 model Copia {
-  copia_id   Int     @id @default(autoincrement())
+  copia_id   Int        @id @default(autoincrement())
   libro_id   Int
   estado     String
-  libro      Libro   @relation(fields: [libro_id], references: [libro_id])
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  libro      Libro      @relation(fields: [libro_id], references: [libro_id])
   pedidos    Pedido[]
 }
 
@@ -44,5 +52,8 @@ model Pedido {
   copia_id      Int
   fecha_pedido  DateTime
   fecha_entrega DateTime?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
   copia         Copia  @relation(fields: [copia_id], references: [copia_id])
 }
+
