@@ -9,3 +9,78 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Departments {
+  id              Int       @id @default(autoincrement())
+  department_name String
+  Doctors         Doctors[]
+}
+
+model Doctors {
+  id            Int             @id @default(autoincrement())
+  first_name    String
+  last_name     String
+  department_id Int
+  departments   Departments     @relation(fields: [department_id], references: [id])
+  Appointments  Appointments[]
+  Prescriptions Prescriptions[]
+}
+
+model Patients {
+  id            Int             @id @default(autoincrement())
+  first_name    String
+  last_name     String
+  date_of_birth DateTime
+  gender        String
+  address       String
+  phone_number  String?
+  Appointments  Appointments[]
+  Prescriptions Prescriptions[]
+  Lab_results   Lab_results[]
+}
+
+model Appointments {
+  id               Int       @id @default(autoincrement())
+  doctor_id        Int
+  patient_id       Int
+  appointment_date DateTime?
+  appointment_time DateTime?
+  doctors          Doctors   @relation(fields: [doctor_id], references: [id])
+  patients         Patients  @relation(fields: [patient_id], references: [id])
+}
+
+model Medications {
+  id              Int             @id @default(autoincrement())
+  medication_name String
+  description     String?
+  Prescriptions   Prescriptions[]
+}
+
+model Prescriptions {
+  id                Int         @id @default(autoincrement())
+  doctor_id         Int
+  patient_id        Int
+  medication_id     Int
+  dosage            String?
+  prescription_date DateTime?
+  doctors           Doctors     @relation(fields: [doctor_id], references: [id])
+  patients          Patients    @relation(fields: [patient_id], references: [id])
+  medications       Medications @relation(fields: [medication_id], references: [id])
+}
+
+model Lab_tests {
+  id          Int           @id @default(autoincrement())
+  test_name   String
+  description String?
+  Lab_results Lab_results[]
+}
+
+model Lab_results {
+  id           Int       @id @default(autoincrement())
+  patient_id   Int
+  lab_test_id  Int
+  result_value String?
+  result_date  DateTime?
+  patients     Patients  @relation(fields: [patient_id], references: [id])
+  lab_tests    Lab_tests @relation(fields: [lab_test_id], references: [id])
+}
