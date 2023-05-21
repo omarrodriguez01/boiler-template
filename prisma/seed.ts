@@ -1,12 +1,19 @@
 import { PrismaClient } from '@prisma/client'
-// import { studentSeeder } from './seeders/studentsSeeder'
-
+import { hospitalSeeder } from './seeders/hospitalsSeeder'
+import { doctorSeeder } from './seeders/doctorsSeeder'
+import { subsidySeeder } from './seeders/subsidiesSeeder'
+import { placeSeeder } from './seeders/placesSeeder'
+import { companySeeder } from './seeders/companiesSeeder'
 
 const prisma = new PrismaClient()
 
 
 async function main() {
-    // await studentSeeder();
+  // await hospitalSeeder();
+  // await doctorSeeder();
+  // await subsidySeeder();
+  // await placeSeeder();
+  await companySeeder();
 }
 main()
   .then(async () => {
