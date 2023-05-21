@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,4 +5,58 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Pelicula {
+  id          Int       @id @default(autoincrement()) @unique
+  titulo      String
+  genero      String?
+  duracion    Int
+  sinopsis    String?
+  rating      Float?
+  fechaEstreno String?
+  paisOrigen  String?
+  director    String?
+  posterUrl   String?
+  funciones   Funcion[]
+}
+
+model Sala {
+  id          Int       @id @default(autoincrement()) @unique
+  nombre      String
+  capacidad   Int
+  tipo        String?
+  descripcion String?
+  funciones   Funcion[]
+}
+
+model Funcion {
+  id             Int           @id @default(autoincrement()) @unique
+  pelicula       Pelicula      @relation(fields: [peliculaId], references: [id])
+  peliculaId     Int
+  sala           Sala          @relation(fields: [salaId], references: [id])
+  salaId         Int
+  fechaHora      DateTime
+  precio         Float
+  disponible     Boolean       @default(true)
+  reservaciones  Reservacion[]
+}
+
+model Cliente {
+  id                Int           @id @default(autoincrement()) @unique
+  nombre            String
+  correoElectronico String        @unique
+  telefono          String?
+  reservaciones     Reservacion[]
+}
+
+model Reservacion {
+  id                Int           @id @default(autoincrement()) @unique
+  funcion           Funcion       @relation(fields: [funcionId], references: [id])
+  funcionId         Int
+  cliente           Cliente       @relation(fields: [clienteId], references: [id])
+  clienteId         Int
+  cantidadTickets   Int
+  total             Float
+  fechaHora         DateTime      @default(now())
 }
