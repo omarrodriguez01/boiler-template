@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 // import { studentSeeder } from './seeders/studentsSeeder'
+import { cheapNetflixSeeders } from './seeders/cheapNetflixSeeders'
 
 
 const prisma = new PrismaClient()
@@ -7,6 +8,7 @@ const prisma = new PrismaClient()
 
 async function main() {
     // await studentSeeder();
+    //await cheapNetflixSeeders();
 }
 main()
   .then(async () => {
