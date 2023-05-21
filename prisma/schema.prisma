@@ -9,3 +9,53 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Doctor {
+  id         String @id @default(uuid())
+  name       String
+  speciality String
+
+  place   Hospital @relation(fields: [placeId], references: [id])
+  placeId String
+}
+
+model Hospital {
+  id             String @id @default(uuid())
+  alias          String
+  bedsCapacity   Int
+  peopleCapacity Int
+
+  doctors Doctor[]
+
+  subsidies Place[]
+}
+
+model Place {
+  // name              String
+  // hospitalsCapacity Int
+  hospital   Hospital @relation(fields: [hospitalId], references: [id])
+  hospitalId String
+  subsidy    Subsidy  @relation(fields: [subsidyId], references: [id])
+  subsidyId  String
+
+  @@id([hospitalId, subsidyId])
+}
+
+model Subsidy {
+  id     String @id @default(uuid())
+  type   String
+  origin String
+
+  hospitals Place[]
+
+  companies Company[]
+}
+
+model Company {
+  id     String @id @default(uuid())
+  name String
+  status Boolean
+
+  subsidy Subsidy @relation(fields: [subsidyId], references: [id])
+  subsidyId String
+}
