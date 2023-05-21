@@ -21,6 +21,8 @@ model Usuario {
   pais                  String
   listas_reproduccion   ListaReproduccion[]
   UsuarioArtistaSeguido UsuarioArtistaSeguido[]
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 }
 
 model Artista {
@@ -30,6 +32,8 @@ model Artista {
   fecha_inicio_carrera  DateTime
   albumes               Album[]
   UsuarioArtistaSeguido UsuarioArtistaSeguido[]
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 }
 
 model Album {
@@ -39,6 +43,8 @@ model Album {
   id_artista        Int
   artista           Artista   @relation(fields: [id_artista], references: [id_artista])
   canciones         Cancion[]
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 }
 
 model Cancion {
@@ -49,6 +55,8 @@ model Cancion {
   album               Album                 @relation(fields: [id_album], references: [id_album])
   listas_reproduccion ListaReproduccion[]
   CancionSeleccionada CancionSeleccionada[]
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 }
 
 model ListaReproduccion {
@@ -59,6 +67,8 @@ model ListaReproduccion {
   usuario               Usuario               @relation(fields: [id_usuario], references: [id_usuario])
   canciones             Cancion[]
   CancionSeleccionada   CancionSeleccionada[]
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 }
 
 model UsuarioArtistaSeguido {
@@ -68,6 +78,8 @@ model UsuarioArtistaSeguido {
   id_artista Int
 
   @@id([id_usuario, id_artista])
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 }
 
 model CancionSeleccionada {
@@ -77,4 +89,6 @@ model CancionSeleccionada {
   id_lista_reproduccion Int
 
   @@id([id_cancion, id_lista_reproduccion])
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 }
