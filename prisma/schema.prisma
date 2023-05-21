@@ -11,28 +11,36 @@ datasource db {
 }
 
 model Pelicula {
-  id     String @id @default(uuid())
-  titulo String
-  genero String
+  id        String   @id @default(uuid())
+  titulo    String
+  genero    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Sala {
-  id     String @id @default(uuid())
-  numero String
+  id        String   @id @default(uuid())
+  numero    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Funcion {
-  id         String @id @default(uuid())
+  id         String   @id @default(uuid())
   fecha      String
   hora       String
   idPelicula Int
   idSala     Int
   precio     Int
   cupo       Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model Boleta {
-  id        String @id @default(uuid())
+  id        String   @id @default(uuid())
   idFuncion Int
   asiento   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
