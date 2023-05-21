@@ -9,3 +9,47 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Bakery {
+  id      Int      @id @default(autoincrement())
+  name    String   @unique
+  address String   @unique
+  employees Employee[]
+  categories Category[]
+}
+
+model Employee {
+  id         Int       @id @default(autoincrement())
+  name       String
+  startDate  DateTime
+  roleName   String
+  bakery     Bakery   @relation(fields: [bakeryId], references: [id])
+  bakeryId   Int
+  orders     Order[]
+}
+
+model Order {
+  id          Int       @id @default(autoincrement())
+  content     String
+  saleDate    DateTime
+  total       Int
+  employee    Employee  @relation(fields: [employeeId], references: [id])
+  employeeId  Int
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  bakery    Bakery   @relation(fields: [bakeryId], references: [id])
+  bakeryId  Int
+  products  Product[]
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  price       Int
+  stock       Int
+  category    Category  @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+}
