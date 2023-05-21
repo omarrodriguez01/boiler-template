@@ -9,3 +9,30 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Pelicula {
+  id     String @id @default(uuid())
+  titulo String
+  genero String
+}
+
+model Sala {
+  id     String @id @default(uuid())
+  numero String
+}
+
+model Funcion {
+  id         String @id @default(uuid())
+  fecha      String
+  hora       String
+  idPelicula Int
+  idSala     Int
+  precio     Int
+  cupo       Int
+}
+
+model Boleta {
+  id        String @id @default(uuid())
+  idFuncion Int
+  asiento   Int
+}
