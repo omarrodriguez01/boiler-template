@@ -50,7 +50,7 @@ model Album {
 model Cancion {
   id_cancion          Int                   @id @default(autoincrement())
   titulo              String
-  duracion            DateTime
+  duracion            Int
   id_album            Int
   album               Album                 @relation(fields: [id_album], references: [id_album])
   listas_reproduccion ListaReproduccion[]
