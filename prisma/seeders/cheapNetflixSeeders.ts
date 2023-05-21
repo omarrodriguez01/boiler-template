@@ -4,15 +4,10 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 /*
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-*/
-
-/*
 export const cheapNetflixSeeders = async () => {
   const user1 = await prisma.user.create({
     data: {
-      //id: 1,
+      id: 1,
       name: 'Mario Isai Robles Lozano',
       birthDate: new Date('2001-09-14 00:00:00'),
       email: 'marioisai11@hotmail.com',
@@ -22,7 +17,7 @@ export const cheapNetflixSeeders = async () => {
   
   const user2 = await prisma.user.create({
     data: {
-      //id: 2,
+      id: 2,
       name: 'Myriam Judith Robles Lozano',
       birthDate: new Date('2003-11-06 00:00:00'),
       email: 'myriamjudith22@hotmail.com',
@@ -32,7 +27,7 @@ export const cheapNetflixSeeders = async () => {
   
   const user3 = await prisma.user.create({
     data: {
-      //id: 3,
+      id: 3,
       name: 'Cesar Miguel Camarillo Cepeda',
       birthDate: new Date('2002-07-08 00:00:00'),
       email: 'cesarmiguel33@hotmail.com',
