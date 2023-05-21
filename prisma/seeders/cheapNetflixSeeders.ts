@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-/*
+
 export const cheapNetflixSeeders = async () => {
   const user1 = await prisma.user.create({
     data: {
@@ -34,34 +34,7 @@ export const cheapNetflixSeeders = async () => {
       userPassword: 'password3',
     },
   });
-  */
-
-  /* TUVE ESTE ERROR, POR LO QUE TUVE QUE QUITAR LOS DATOS DE ID
-    unning seed command `ts-node prisma/seed.ts` ...
-    PrismaClientKnownRequestError: 
-    Invalid `prisma.user.create()` invocation in
-    path/boiler-template/prisma/seeders/cheapNetflixSeeders.ts:8:35
-
-      5 
-      6 
-      7 export const cheapNetflixSeeders = async () => {
-    → 8   const user1 = await prisma.user.create(
-    Unique constraint failed on the fields: (`id`)
-        at fn.handleRequestError (path/boiler-template/node_modules/@prisma/client/runtime/library.js:174:6477)
-        at fn.handleAndLogRequestError (path/boiler-template/node_modules/@prisma/client/runtime/library.js:174:5907)
-        at fn.request (path/boiler-template/node_modules/@prisma/client/runtime/library.js:174:5786)
-        at async t._request (path/boiler-template/node_modules/@prisma/client/runtime/library.js:177:10477)
-        at async cheapNetflixSeeders (path/boiler-template/prisma/seeders/cheapNetflixSeeders.ts:8:17)
-        at async main (path/boiler-template/prisma/seed.ts:11:5) {
-      code: 'P2002',
-      clientVersion: '4.12.0',
-      meta: { target: [ 'id' ] }
-    }
-
-    An error occurred while running the seed command:
-    Error: Command failed with exit code 1: ts-node prisma/seed.ts
-  */
-  /*
+  
   console.log({ user1, user2, user3 });
 
   const series1 = await prisma.series.create({
