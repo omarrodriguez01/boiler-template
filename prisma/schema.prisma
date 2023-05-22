@@ -19,6 +19,9 @@ model Guest {
   address     String
 
   bookings    Booking[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
 }
 
 model Room {
@@ -29,6 +32,9 @@ model Room {
   isAvailable   Boolean
 
   bookings      Booking[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
 }
 
 model Booking {
@@ -42,12 +48,18 @@ model Booking {
   room         Room     @relation(fields: [roomNumber], references: [roomNumber])
   roomNumber   Int
   payments     Payment[]
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
 }
 
 model Service {
   id     Int      @id @default(autoincrement())
   name   String
   price  Float
+  
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
 }
 
 model Payment {
@@ -57,4 +69,7 @@ model Payment {
 
   booking       Booking  @relation(fields: [bookingId], references: [id])
   bookingId     Int
+  
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
 }
