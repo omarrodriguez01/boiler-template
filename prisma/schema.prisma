@@ -9,3 +9,57 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Restaurant {
+  id        String  @id @default(cuid())
+  name      String
+  latitude  Float
+  longitude Float
+  tables    Table[]
+  dishes    Dish[]
+}
+
+model Dish {
+  id           String      @id @default(cuid())
+  restaurantId String
+  name         String
+  description  String
+  price        Float
+  restaurant   Restaurant  @relation(fields: [restaurantId], references: [id])
+  orderItems   OrderItem[]
+}
+
+model Table {
+  id           String     @id @default(cuid())
+  number       Int
+  restaurantId String
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  orders       Order[]
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  tableId    String
+  date       DateTime
+  table      Table       @relation(fields: [tableId], references: [id])
+  orderItems OrderItem[]
+  payments   Payment[]
+}
+
+model OrderItem {
+  id                  String @id @default(cuid())
+  orderId             String
+  dishId              String
+  specialInstructions String
+  order               Order  @relation(fields: [orderId], references: [id])
+  dish                Dish   @relation(fields: [dishId], references: [id])
+}
+
+model Payment {
+  id            String   @id @default(cuid())
+  orderId       String
+  amount        Float
+  paymentMethod String
+  date          DateTime
+  order         Order    @relation(fields: [orderId], references: [id])
+}
