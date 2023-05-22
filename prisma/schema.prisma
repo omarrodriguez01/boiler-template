@@ -9,3 +9,41 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Peliculas {
+  idPelicula  Int @id @default(autoincrement())
+  titulo  String
+  genero Generos @relation(fields: [idGenero], references: [idGenero])
+  idGenero Int
+  funcion Funciones[]
+}
+
+model Funciones {
+  idFuncion  Int @id @default(autoincrement())
+  pelicula Peliculas @relation(fields: [idPelicula], references: [idPelicula])
+  idPelicula Int
+  horario DateTime
+  sala Salas @relation(fields: [idSala], references: [idSala])
+  idSala Int
+}
+
+model Salas {
+  idSala  Int @id @default(autoincrement())
+  categoria Categorias @relation(fields: [idCategoria], references: [idCategoria])
+  idCategoria Int
+  numSala Int
+  capacidad Int
+  funcion Funciones[]
+}
+
+model Generos {
+  idGenero  Int @id @default(autoincrement())
+  genero  String
+  pelicula Peliculas[]
+}
+
+model Categorias {
+  idCategoria  Int @id @default(autoincrement())
+  categoria  String
+  sala Salas[]
+}
