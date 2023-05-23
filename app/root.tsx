@@ -7,6 +7,13 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import type { LinksFunction } from "@remix-run/node";
+import tailwindStylesheetUrl from "./styles/tailwind.css";
+
+export const links: LinksFunction = () => {
+  return [{ rel: "stylesheet", href: tailwindStylesheetUrl }];
+};
+
 export default function App() {
   return (
     <html lang="en">
@@ -21,6 +28,7 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
+        
       </body>
     </html>
   );
