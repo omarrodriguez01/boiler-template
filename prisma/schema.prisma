@@ -9,3 +9,68 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Customers {
+  customer_id      Int            @id @default(autoincrement())
+  customer_name    String
+  customer_email   String
+  customer_phone   String
+  customer_address String
+  Maintenances     Maintenances[]
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+}
+
+model Employees {
+  employee_id        Int            @id @default(autoincrement())
+  employee_name     String
+  employee_email     String
+  employee_phone     String
+  employee_specialty String
+  Maintenances       Maintenances[]
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+}
+
+model Cars {
+  car_id       Int            @id @default(autoincrement())
+  car_name     String
+  car_model    String
+  car_year     String
+  car_color    String
+  car_price    Int
+  Maintenances Maintenances[]
+  Spare_Parts  Spare_Parts[]
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+}
+
+model Maintenances {
+  maintenance_id       Int       @id @default(autoincrement())
+  maintenance_customer Customers @relation(fields: [customer_id], references: [customer_id])
+  customer_id          Int
+  maintenance_car      Cars      @relation(fields: [car_id], references: [car_id])
+  car_id               Int
+  maintenance_employee Employees @relation(fields: [employee_id], references: [employee_id])
+  employee_id          Int
+  description          String
+  maintenance_date     DateTime
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+}
+
+model Spare_Parts {
+  spare_part_id    Int    @id @default(autoincrement())
+  spare_part_car   Cars   @relation(fields: [car_id], references: [car_id])
+  car_id           Int
+  spare_part_name  String
+  spare_part_price Int
+  spare_part_stock Int
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+}
