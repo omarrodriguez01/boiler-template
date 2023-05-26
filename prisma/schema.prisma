@@ -9,3 +9,46 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+model Archivos {
+  ID     Int    @id
+  Nombre String?
+  Path   String?
+  Cliente Cliente @relation(fields: [ClienteFK], references: [ID])
+  ClienteFK Int
+}
+
+model Cliente {
+  ID         Int     @id
+  Nombre     String?
+  Empresa    String?
+  Contacto   String?
+  Estatus    Estatus @relation(fields: [EstatusFK], references: [ID])
+  EstatusFK  Int
+  Archivos   Archivos[]
+  Tareas     Tareas[]
+}
+
+model Estatus {
+  ID         Int      @id
+  Estatus    String?
+  Cliente    Cliente[]
+}
+
+//en el diagrama grafico "Involucrados" se cambio de nombre por "responsables" para mejor entendimiento
+model Involucrados {
+  ID         Int        @id
+  Nombre     String?
+  Puesto     String?
+  Tareas     Tareas[]
+}
+
+model Tareas {
+  ID             Int             @id
+  Nombre         String?
+  Descripcion    String?
+  FechaLimite    String?
+  Involucrado    Involucrados @relation(fields: [InvolucradoFK], references: [ID])
+  InvolucradoFK Int
+  Cliente        Cliente @relation(fields: [ClienteFK], references: [ID])
+  ClienteFK      Int 
+}
