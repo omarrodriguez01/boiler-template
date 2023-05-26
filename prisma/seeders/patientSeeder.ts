@@ -1,8 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 
-
 const prisma = new PrismaClient()
-
 
 export const patientSeeder= async () => {
     const patient = await prisma.patient.createMany({
@@ -15,8 +13,6 @@ export const patientSeeder= async () => {
                 address: '123 Main St',
                 phoneNumber: '555-555-1212',
                 email: 'johndoe@email.com',
-                insuranceInfo: 'Blue Cross Blue Shield',
-                emergencyContact: 'Jane Doe'
               },
               {
                 id: 2,
@@ -26,8 +22,6 @@ export const patientSeeder= async () => {
                 address: '456 Oak Ave',
                 phoneNumber: '555-555-2323',
                 email: 'janesmith@email.com',
-                insuranceInfo: 'Aetna',
-                emergencyContact: 'John Smith'
               },
               {
                 id: 3,
@@ -37,8 +31,6 @@ export const patientSeeder= async () => {
                 address: '789 Elm St',
                 phoneNumber: '555-555-3434',
                 email: 'bobjohnson@email.com',
-                insuranceInfo: 'Cigna',
-                emergencyContact: 'Sue Johnson'
               },
             ],
       })

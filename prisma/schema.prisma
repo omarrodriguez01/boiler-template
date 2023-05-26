@@ -18,8 +18,6 @@ model Patient {
   address          String
   phoneNumber      String
   email            String
-  insuranceInfo    String
-  emergencyContact String
   appointments     Appointment[]
   medicalRecords   MedicalRecord[]
   Prescription     Prescription[]
