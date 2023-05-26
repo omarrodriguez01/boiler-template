@@ -38,7 +38,8 @@ CREATE OR replace FUNCTION truncateServiceTable()
   RETURNS VOID
 AS $$
 BEGIN
-  TRUNCATE TABLE Service;
+  TRUNCATE TABLE Service CASCADE;
+  return;
 END;
 $$ LANGUAGE plpgsql;
 
