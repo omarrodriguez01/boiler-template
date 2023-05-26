@@ -21,22 +21,22 @@ model Author {
 model Book {
   id          Int        @id @default(autoincrement())
   title       String
-  author      Author     @relation(fields: [authorId], references: [id])
+  author      Author     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId    Int
-  editorial   Editorial? @relation(fields: [editorialId], references: [id])
+  editorial   Editorial? @relation(fields: [editorialId], references: [id], onDelete: Cascade)
   editorialId Int?
   loans       Loan[]
-  genre       Genre      @relation(fields: [genreId], references: [id])
+  genre       Genre      @relation(fields: [genreId], references: [id], onDelete: Cascade)
   genreId     Int
 }
 
 model Loan {
   id        Int       @id @default(autoincrement())
-  book      Book      @relation(fields: [bookId], references: [id])
+  book      Book      @relation(fields: [bookId], references: [id], onDelete: Cascade)
   bookId    Int
   startDate DateTime
   endDate   DateTime?
-  person    Person?   @relation(fields: [personId], references: [id])
+  person    Person?   @relation(fields: [personId], references: [id], onDelete: Cascade)
   personId  Int?
 }
 
