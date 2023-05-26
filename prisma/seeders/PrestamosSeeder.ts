@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function seedPrestamos() {
+async function PrestamosSeeder() {
   try {
     const prestamo1 = await prisma.prestamos.create({
       data: {
@@ -40,4 +40,4 @@ async function seedPrestamos() {
   }
 }
 
-seedPrestamos();
+PrestamosSeeder();

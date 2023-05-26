@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function seedLibros() {
+async function LibroSeeder() {
   try {
     const libro1 = await prisma.libro.create({
       data: {
@@ -40,4 +40,4 @@ async function seedLibros() {
   }
 }
 
-seedLibros();
+LibroSeeder();

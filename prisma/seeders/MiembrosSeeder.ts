@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function seedMiembros() {
+async function MiembrosSeeder() {
   try {
     const miembro1 = await prisma.miembros.create({
       data: {
@@ -43,4 +43,4 @@ async function seedMiembros() {
   }
 }
 
-seedMiembros();
+MiembrosSeeder();

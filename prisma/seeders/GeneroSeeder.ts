@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function seedGeneros() {
+async function GeneroSeeder() {
   try {
     const genero1 = await prisma.genero.create({
       data: {
@@ -31,4 +31,4 @@ async function seedGeneros() {
   }
 }
 
-seedGeneros();
+GeneroSeeder();

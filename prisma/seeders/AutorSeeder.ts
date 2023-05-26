@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function seedAutores() {
+async function AutorSeeder() {
   try {
     const autor1 = await prisma.autor.create({
       data: {
@@ -34,4 +34,4 @@ async function seedAutores() {
   }
 }
 
-seedAutores();
+AutorSeeder();
