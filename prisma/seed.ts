@@ -1,6 +1,8 @@
 import { PrismaClient } from '@prisma/client'
 import { contribuyenteSeeder } from './seeders/contribuyenteSeeder'
-import { facturaSeeder } from './seeders/facturasSeeder';
+import { detalleFacturaSeeder } from './seeders/detalleFacturaSeeder';
+import { detallePagoSeeder } from './seeders/detallePagoSeeder';
+import { facturasSeeder } from './seeders/facturasSeeder';
 import { impuestoSeeder } from './seeders/impuestoSeeder';
 import { pagoSeeder } from './seeders/pagoSeeder';
 import { retencionSeeder } from './seeders/retencionSeeder';
@@ -9,10 +11,12 @@ const prisma = new PrismaClient()
 
 async function main() {
     await contribuyenteSeeder();
-    await facturaSeeder();
+    await facturasSeeder();
     await pagoSeeder();
     await retencionSeeder();
     await impuestoSeeder();
+    await detalleFacturaSeeder();
+    await detallePagoSeeder();
 }
 main()
   .then(async () => {

@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 // Se insertan datos a la tabla contribuyente
-export const facturaSeeder = async () => {
+export const facturasSeeder = async () => {
   const factura1 = await prisma.factura.create({
     data: {
       id: 1,

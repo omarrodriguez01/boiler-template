@@ -33,7 +33,7 @@ model Factura {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  contribuyente Contribuyente @relation(fields: [contribuyenteId], references: [id])
+  contribuyente Contribuyente @relation(fields: [contribuyenteId], references: [id], onDelete: Cascade)
 
   impuestos       Impuesto[]
   detalleFacturas DetalleFactura[]
@@ -47,7 +47,7 @@ model Pago {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  contribuyente Contribuyente @relation(fields: [contribuyenteId], references: [id])
+  contribuyente Contribuyente @relation(fields: [contribuyenteId], references: [id], onDelete: Cascade)
 
   detallePagos DetallePago[]
   retenciones  Retencion[]
@@ -61,7 +61,7 @@ model DetallePago {
   facturaId Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  pago      Pago     @relation(fields: [pagoId], references: [id])
+  pago      Pago     @relation(fields: [pagoId], references: [id], onDelete: Cascade)
 }
 
 model Retencion {
@@ -72,7 +72,7 @@ model Retencion {
   monto     Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  pago      Pago     @relation(fields: [pagoId], references: [id])
+  pago      Pago     @relation(fields: [pagoId], references: [id], onDelete: Cascade)
 }
 
 model DetalleFactura {
@@ -83,7 +83,7 @@ model DetalleFactura {
   precioUnitario Float
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  factura        Factura  @relation(fields: [facturaId], references: [id])
+  factura        Factura  @relation(fields: [facturaId], references: [id], onDelete: Cascade)
 }
 
 model Impuesto {
@@ -94,5 +94,5 @@ model Impuesto {
   monto     Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  factura   Factura  @relation(fields: [facturaId], references: [id])
+  factura   Factura  @relation(fields: [facturaId], references: [id], onDelete: Cascade)
 }
