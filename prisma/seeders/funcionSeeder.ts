@@ -13,7 +13,7 @@ export const funcionSeeders= async () => {
         fecha:"2/12/2023",
         hora: "7:30",
         idPelicula: 3,
-        idSala: 4,
+        salaId: "27c96aea-1aef-4c88-9afd-5c89e6d4604a",
         precio: 85,
         cupo: 400
 
@@ -22,7 +22,7 @@ export const funcionSeeders= async () => {
         fecha:"9/12/2021",
         hora: "8:10",
         idPelicula: 2,
-        idSala: 8,
+        salaId: "27c96aea-1aef-4c88-9afd-5c89e6d4604a",
         precio: 55,
         cupo: 150
       },
@@ -30,7 +30,7 @@ export const funcionSeeders= async () => {
         fecha:"1/07/2023",
         hora: "2:35",
         idPelicula: 5,
-        idSala: 1,
+        salaId: "27c96aea-1aef-4c88-9afd-5c89e6d4604a",
         precio: 119,
         cupo: 230
       }

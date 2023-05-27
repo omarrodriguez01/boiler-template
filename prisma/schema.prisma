@@ -23,6 +23,8 @@ model Sala {
   numero    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  funciones Funcion[]
 }
 
 model Funcion {
@@ -30,11 +32,13 @@ model Funcion {
   fecha      String
   hora       String
   idPelicula Int
-  idSala     Int
   precio     Int
   cupo       Int
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+
+  sala   Sala   @relation(fields: [salaId], references: [id])
+  salaId String
 }
 
 model Boleta {
