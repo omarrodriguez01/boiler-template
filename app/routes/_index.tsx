@@ -1,38 +1,23 @@
-import type { V2_MetaFunction } from "@remix-run/react";
+import { json } from "@remix-run/node";
+import { V2_MetaFunction, useLoaderData } from "@remix-run/react";
+import { ForumList } from "~/components/ForumList";
+import { getForums } from "~/utils/forum.server";
 
 export const meta: V2_MetaFunction = () => {
-  return [{ title: "New Remix App" }];
+  return [{ title: "Main page" }];
+};
+
+export const loader = async () => {
+  const forums = await getForums()
+  return json({forums});
 };
 
 export default function Index() {
+  const { forums } = useLoaderData()
+  console.log("index forums: " + forums)
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1>Welcome TODOS</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorialdnfjkdnb
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
-            Deep Dive Jokes App
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
+      <ForumList forums={ forums } />
     </div>
   );
 }
