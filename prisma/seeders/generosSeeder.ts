@@ -13,6 +13,10 @@ export const generosSeeder = async() => {
         },
         {
             genero: 'Drama',
+        },
+        {
+            idGenero: 9,
+            genero: 'IND',
         },]
     })
     console.log(genero);
