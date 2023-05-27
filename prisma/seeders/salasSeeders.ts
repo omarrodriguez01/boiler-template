@@ -2,26 +2,28 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function seed() {
-  try {
+export const salasSeeder= async () => {
     // Poblar la tabla Salas
-    const salas = [
-      {
-        nombre: 'Sala 1',
-        capacidad: 100,
-      },
-      {
-        nombre: 'Sala 2',
-        capacidad: 80,
-      },
-    ];
+    const salas = await prisma.salas.createMany({
 
-    console.log('Seeding completed successfully.');
-  } catch (error) {
-    console.error('Error while seeding:', error);
-  } finally {
-    await prisma.$disconnect();
-  }
+      data: [
+        {
+          id_sala: 1,
+          nombre: 'Sala 1',
+          capacidad: 100,
+        },
+        {
+          id_sala: 2,
+          nombre: 'Sala 2',
+          capacidad: 80
+        },
+        {
+          id_sala: 3,
+          nombre: 'Sala 3',
+          capacidad: 90
+        },
+      ]
+    })
+
+    console.log({salas})
 }
-
-seed();
