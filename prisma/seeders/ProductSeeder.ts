@@ -6,7 +6,7 @@ export const productSeeder = async () => {
   const product1 = await prisma.product.create({
     data: {
       id: 1,
-      name: 'Oreja',
+      name_product: 'Oreja',
       price: 7,
       stock: 50,
       categoryId: 1
@@ -16,7 +16,7 @@ export const productSeeder = async () => {
   const product2 = await prisma.product.create({
     data: {
       id: 2,
-      name: 'Concha',
+      name_product: 'Concha',
       price: 7,
       stock: 15,
       categoryId: 1
@@ -26,7 +26,7 @@ export const productSeeder = async () => {
   const product3 = await prisma.product.create({
     data: {
       id: 3,
-      name: 'Bolillo',
+      name_product: 'Bolillo',
       price: 2,
       stock: 30,
       categoryId: 2

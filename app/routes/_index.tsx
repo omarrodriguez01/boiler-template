@@ -1,38 +1,42 @@
 import type { V2_MetaFunction } from "@remix-run/react";
+import { CreateProduct } from "~/routes/component/create";
+import { db } from "~/utils/db.server";
+import { ProductTable } from "./component/ProductTable";
+import { getProducts } from "~/utils/products.server";
+import { json } from "@remix-run/node"; // or cloudflare/deno
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: "New Remix App" }];
 };
+/* 
+export const loader: LoaderFunction = async ({ request }) => {
+  const products = await getProducts();
+  return json( products )
+}
 
+
+ */
 export default function Index() {
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1>Welcome TODOS</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorialdnfjkdnb
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
-            Deep Dive Jokes App
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
-    </div>
+    <>
+      <head>
+        <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css"
+          rel="stylesheet"
+        />
+      </head>
+      <body>
+        <div className="m-6 p-4 relative max-w-m overflow-x-auto shadow-md sm:rounded-lg">
+          <h1 className=" text-3xl font-bold ">Register Product</h1>
+          <br></br>
+
+          <CreateProduct></CreateProduct>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+
+      </body>
+    </>
   );
 }
+
