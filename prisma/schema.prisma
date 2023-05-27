@@ -16,44 +16,30 @@ model empleados {
   fecha_contratado DateTime  @db.Date
   puesto           String    @db.VarChar(50)
   salario          Decimal   @db.Decimal(10, 2)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
   ordenes          ordenes[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model orden_items {
-  orden_item_id    Int            @id @default(autoincrement())
-  orden_id         Int
-  producto_menu_id Int
-  cantidad         Int
-  precio           Decimal        @db.Decimal(10, 2)
-  ordenes          ordenes        @relation(fields: [orden_id], references: [orden_id], onDelete: NoAction, onUpdate: NoAction)
-  productos_menu   productos_menu @relation(fields: [producto_menu_id], references: [producto_menu_id], onDelete: NoAction, onUpdate: NoAction)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model ordenes {
-  orden_id       Int           @id @default(autoincrement())
-  cliente_nombre String        @db.VarChar(100)
-  orden_fecha    DateTime      @db.Timestamp(6)
+  orden_id       Int       @id @default(autoincrement())
+  cliente_nombre String    @db.VarChar(100)
+  orden_fecha    DateTime  @db.Timestamp(6)
   mesa_numero    Int
-  estatus        String        @db.VarChar(20)
+  estatus        String    @db.VarChar(20)
   empleado_id    Int
-  orden_items    orden_items[]
-  empleados      empleados     @relation(fields: [empleado_id], references: [empleado_id], onDelete: NoAction, onUpdate: NoAction)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  empleados      empleados @relation(fields: [empleado_id], references: [empleado_id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model productos_menu {
-  producto_menu_id Int           @id @default(autoincrement())
-  nombre           String        @db.VarChar(100)
+  producto_menu_id Int      @id @default(autoincrement())
+  nombre           String   @db.VarChar(100)
   descripcion      String?
-  precio           Decimal       @db.Decimal(10, 2)
-  categoria        String        @db.VarChar(50)
-  imagen_url       String?       @db.VarChar(255)
-  orden_items      orden_items[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  precio           Decimal  @db.Decimal(10, 2)
+  categoria        String   @db.VarChar(50)
+  imagen_url       String?  @db.VarChar(255)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
