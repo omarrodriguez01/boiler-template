@@ -1,12 +1,21 @@
 import { PrismaClient } from '@prisma/client'
-// import { studentSeeder } from './seeders/studentsSeeder'
-
+import { hospitalSeeder } from './seeders/hospitalsSeeder'
+import { doctorSeeder } from './seeders/doctorsSeeder'
+import { subsidySeeder } from './seeders/subsidiesSeeder'
+import { placeSeeder } from './seeders/placesSeeder'
+import { companySeeder } from './seeders/companiesSeeder'
 
 const prisma = new PrismaClient()
 
 
 async function main() {
-    // await studentSeeder();
+  //ADVERTENCIA: Correr en orden e ir llegando la foreign key correspondiente
+  // await hospitalSeeder();
+  // await subsidySeeder();
+  // await companySeeder();
+  // await doctorSeeder();            
+  // await placeSeeder();
+  
 }
 main()
   .then(async () => {
