@@ -19,7 +19,7 @@ export const peliculaSeeder = async () => {
       },
       {
         titulo: "Super Mario Bros. La película",
-        director: "aaron horvath",
+        director: "Aaron Horvath",
         duracion_minutos: 92,
         id_genero: 3,
       },

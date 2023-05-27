@@ -24,7 +24,7 @@ model Sala {
   numero    Int
   capacidad Int
   id_cine   Int
-  cine      Cine      @relation("CineSala", fields: [id_cine], references: [id])
+  cine      Cine      @relation("CineSala", fields: [id_cine], references: [id], onDelete: Cascade)
   funciones Funcion[] @relation("SalaFuncion")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now()) @updatedAt
@@ -44,7 +44,7 @@ model Pelicula {
   director         String
   duracion_minutos Int
   id_genero        Int
-  genero           Genero    @relation("PeliculaGenero", fields: [id_genero], references: [id])
+  genero           Genero    @relation("PeliculaGenero", fields: [id_genero], references: [id], onDelete: Cascade)
   funciones        Funcion[] @relation("PeliculaFuncion")
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @default(now()) @updatedAt
@@ -55,8 +55,8 @@ model Funcion {
   id_pelicula Int
   id_sala     Int
   fecha       DateTime
-  pelicula    Pelicula @relation("PeliculaFuncion", fields: [id_pelicula], references: [id])
-  sala        Sala     @relation("SalaFuncion", fields: [id_sala], references: [id])
+  pelicula    Pelicula @relation("PeliculaFuncion", fields: [id_pelicula], references: [id], onDelete: Cascade)
+  sala        Sala     @relation("SalaFuncion", fields: [id_sala], references: [id], onDelete: Cascade)
   boletos     Boleto[] @relation("FuncionBoleto")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now()) @updatedAt
@@ -68,8 +68,8 @@ model Boleto {
   id_cliente Int
   asiento    String
   precio     Float
-  funcion    Funcion  @relation("FuncionBoleto", fields: [id_funcion], references: [id])
-  cliente    Cliente  @relation("ClienteBoleto", fields: [id_cliente], references: [id])
+  funcion    Funcion  @relation("FuncionBoleto", fields: [id_funcion], references: [id], onDelete: Cascade)
+  cliente    Cliente  @relation("ClienteBoleto", fields: [id_cliente], references: [id], onDelete: Cascade)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt
 }
