@@ -1,38 +1,40 @@
 import type { V2_MetaFunction } from "@remix-run/react";
+import AllMusic from "~/components/AllMusic";
+import NavBar from "~/components/NavBar";
+import SideBar from "~/components/SideBar";
+
+import { prisma } from "../server/db";
 
 export const meta: V2_MetaFunction = () => {
-  return [{ title: "New Remix App" }];
+  return [{ title: "IndieVibe" }];
 };
 
-export default function Index() {
+export default function Index(props: any) {
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1>Welcome TODOS</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorialdnfjkdnb
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
-            Deep Dive Jokes App
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
+    <div className="flex flex-col">
+      <NavBar/>
+      <div className="flex">
+        <SideBar/>
+        <div>
+          <AllMusic props={props.songs}/>
+        </div>
+      </div>
     </div>
   );
+}
+
+
+export async function getStaticProps() {
+ 
+  //const songs = await prisma.cancion.findMany();
+  const songs = await prisma.cancion.findMany({
+    where: {
+      id_cancion: 1,
+    },
+  });
+  return {
+    props: {
+      songs: songs,
+    },
+  };
 }

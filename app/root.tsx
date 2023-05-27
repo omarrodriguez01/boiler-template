@@ -1,3 +1,10 @@
+import stylesheet from "~/tailwind.css";
+
+export function links(){
+  return [{ rel: "stylesheet", href: stylesheet }];
+}
+
+
 import {
   Links,
   LiveReload,
@@ -6,6 +13,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+
 
 export default function App() {
   return (
