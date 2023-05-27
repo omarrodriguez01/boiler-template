@@ -9,11 +9,13 @@ const prisma = new PrismaClient()
 
 
 async function main() {
+  //ADVERTENCIA: Correr en orden e ir llegando la foreign key correspondiente
   // await hospitalSeeder();
-  // await doctorSeeder();
   // await subsidySeeder();
+  // await companySeeder();
+  // await doctorSeeder();            
   // await placeSeeder();
-  await companySeeder();
+  
 }
 main()
   .then(async () => {
