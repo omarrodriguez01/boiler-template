@@ -9,3 +9,62 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Book {
+  id               Int            @id @default(autoincrement())
+  title            String
+  author           String
+  publication_date DateTime?
+  available        Boolean
+  //Relaciones
+  loans            Loan[]         @relation("BookLoans")
+  bookCategories   BookCategory[] @relation("BookCategoryBook")
+  createdAt        DateTime
+  updatedAt        DateTime
+}
+
+model Loan {
+  id        Int      @id @default(autoincrement()) @map("id")
+  book_id   Int
+  member_id Int
+  loan_date DateTime
+  due_date  DateTime
+  //Relaciones
+  book      Book     @relation("BookLoans", fields: [book_id], references: [id])
+  member    Member   @relation("LoanMember", fields: [member_id], references: [id])
+
+  createdAt DateTime
+  updatedAt DateTime
+}
+
+model Member {
+  id        Int      @id @default(autoincrement())
+  name      String
+  address   String
+  phone     String
+  email     String
+  join_date DateTime
+  //Relación
+  loans     Loan[]   @relation("LoanMember")
+
+  createdAt DateTime
+  updatedAt DateTime
+}
+
+model BookCategory {
+  bookid     Int      @id @default(autoincrement())
+  categoryid Int
+  book       Book     @relation("BookCategoryBook", fields: [bookid], references: [id])
+  category   Category @relation(fields: [categoryid], references: [categoryid])
+  createdAt  DateTime
+  updatedAt  DateTime
+}
+
+model Category {
+  categoryid     Int            @id @default(autoincrement())
+  name           String
+  description    String
+  bookCategories BookCategory[]
+  createdAt      DateTime
+  updatedAt      DateTime
+}
