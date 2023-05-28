@@ -9,3 +9,64 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id                Int      @id @default(autoincrement())
+  username          String
+  email             String
+  password          String
+  firstName         String
+  lastName          String?
+  profilePicture    String?
+  subscriptionTier  String 
+  playlists         Playlist[]
+  reviews           Review[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+}
+
+model Movie {
+  id          Int      @id @default(autoincrement())
+  title       String
+  director    String
+  duration    Int
+  genre       String
+  rating      String
+  relaseYear  Int
+  reviews     Review[]
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+}
+
+model Forum {
+  id            Int      @id @default(autoincrement())
+  title         String
+  contributors  Int
+  reviews       Review[]
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+}
+
+model Playlist {
+  id        Int      @id @default(autoincrement())
+  title     String
+  image     String?
+  author    User    @relation(fields: [userId], references: [id])
+  userId    Int
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  author    User     @relation(fields: [userId], references: [id])
+  userId    Int
+  movie     Movie    @relation(fields: [movieId], references: [id])
+  movieId   Int
+  forum     Forum    @relation(fields: [forumId], references: [id])
+  forumId   Int
+  stars     Int
+  comments  String?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+}
