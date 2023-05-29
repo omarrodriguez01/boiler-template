@@ -1,15 +1,8 @@
-import { Form, useActionData, useLoaderData, useTransition } from 'remix';
-import { loader as TaskLoader } from 'app/routes/api/product/get';
-import { db } from "~/utils/db.server";
 import { Product } from "@prisma/client";
+import { Form, Link, useTransition } from "@remix-run/react";
 
 
-export const loader = TaskLoader;
-// export const action = NewTaskAction;
-
-export function ProductTable() {
-    const products = useLoaderData<Product[]>();
-    console.log("Products: " + products)
+export function ProductTable(products: any) {
     return(
 
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -34,14 +27,11 @@ export function ProductTable() {
                     </th>
                 </tr>
             </thead>
-            {products.map((product: any) => (
-                    <form>
-
-                    
+            {products.products.map((product: Product) => (
                 <tbody key={product.id}>
                     <tr className="bg-white border-b dark:bg-gray-900 ">
                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                            {product.name}
+                            {product.name_product}
                         </th>
                         <td className="px-6 py-4">
                             {product.categoryId}
@@ -53,12 +43,17 @@ export function ProductTable() {
                             {product.stock}
                         </td>
                         <td className="px-6 py-4">
-                            <a href="#" className="font-medium text-blue-600 hover:underline">Delete</a>
+                            <Link to={`${product.id}`}>
+                                <button className="font-medium text-blue-600 hover:underline">View</button>
+                            </Link>
+                            <Form method="DELETE">
+                                <input type={"hidden"} value={product.id} name="id" />
+                                <button type="submit" className="font-medium text-blue-600 hover:underline">Delete</button>
+                            </Form>
+                            
                         </td>
                     </tr>
-
                 </tbody>
-                </form>
             ))}
         </table>
     </div>
