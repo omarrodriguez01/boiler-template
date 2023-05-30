@@ -2,8 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function MiembrosSeeder() {
-  try {
+export const MiembrosSeeder= async () => {
     const miembro1 = await prisma.miembros.create({
       data: {
         nombre: 'Member 1',
@@ -36,11 +35,6 @@ async function MiembrosSeeder() {
 
     console.log('Seeding of Miembros completed successfully.');
 
-  } catch (error) {
-    console.error('Error seeding Miembros:', error);
-  } finally {
-    await prisma.$disconnect();
-  }
 }
 
 MiembrosSeeder();

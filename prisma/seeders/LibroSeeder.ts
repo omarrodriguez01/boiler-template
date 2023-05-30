@@ -2,8 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function LibroSeeder() {
-  try {
+export const LibroSeeder= async () => {
     const libro1 = await prisma.libro.create({
       data: {
         titulo: 'The Foxhole Court',
@@ -33,11 +32,7 @@ async function LibroSeeder() {
 
     console.log('Seeding of Libros completed successfully.');
 
-  } catch (error) {
-    console.error('Error seeding Libros:', error);
-  } finally {
-    await prisma.$disconnect();
-  }
+
 }
 
 LibroSeeder();

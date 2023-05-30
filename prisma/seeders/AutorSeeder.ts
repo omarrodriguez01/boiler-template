@@ -2,8 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function AutorSeeder() {
-  try {
+export const AutorSeeder= async () => {
     const autor1 = await prisma.autor.create({
       data: {
         nombre: 'Marie Lu',
@@ -27,11 +26,6 @@ async function AutorSeeder() {
 
     console.log('Seeding of Autores completed successfully.');
 
-  } catch (error) {
-    console.error('Error seeding Autores:', error);
-  } finally {
-    await prisma.$disconnect();
-  }
 }
 
 AutorSeeder();

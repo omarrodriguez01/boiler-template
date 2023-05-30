@@ -2,8 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function GeneroSeeder() {
-  try {
+export const GeneroSeeder= async () => {
     const genero1 = await prisma.genero.create({
       data: {
         nombre: 'Fiction',
@@ -24,11 +23,6 @@ async function GeneroSeeder() {
 
     console.log('Seeding of Generos completed successfully.');
 
-  } catch (error) {
-    console.error('Error seeding Generos:', error);
-  } finally {
-    await prisma.$disconnect();
-  }
 }
 
 GeneroSeeder();
