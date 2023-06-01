@@ -16,12 +16,16 @@ model productos {
   precio      Decimal
   stock       Int
   detalleVenta detalle_Ventas[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model ventas {
   idVenta    Int             @unique @default(autoincrement())
   total      Decimal
   detalleVenta detalle_Ventas[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model detalle_Ventas {
@@ -32,4 +36,6 @@ model detalle_Ventas {
   subtotal    Decimal
   venta       ventas         @relation(fields: [idVenta], references: [idVenta])
   producto    productos      @relation(fields: [idProducto], references: [idProducto])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
