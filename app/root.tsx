@@ -7,6 +7,8 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import stylesheet from "~/tailwind.css";
+
 export default function App() {
   return (
     <html lang="en">
@@ -25,3 +27,7 @@ export default function App() {
     </html>
   );
 }
+
+export function links (){
+  return [{ rel: "stylesheet", href: stylesheet }]
+};
