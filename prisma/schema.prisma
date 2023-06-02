@@ -9,3 +9,90 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Contribuyente {
+  id        Int      @id @default(autoincrement())
+  rfc       String
+  nombre    String
+  direccion String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  facturas Factura[]
+  pagos    Pago[]
+}
+
+model Factura {
+  id              Int      @id @default(autoincrement())
+  contribuyenteId Int
+  fecha           DateTime
+  total           Float
+  iva             Float
+  descuento       Float?
+  subtotal        Float
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  contribuyente Contribuyente @relation(fields: [contribuyenteId], references: [id], onDelete: Cascade)
+
+  impuestos       Impuesto[]
+  detalleFacturas DetalleFactura[]
+}
+
+model Pago {
+  id              Int      @id @default(autoincrement())
+  contribuyenteId Int
+  fechaPago       DateTime
+  montoPagado     Float
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  contribuyente Contribuyente @relation(fields: [contribuyenteId], references: [id], onDelete: Cascade)
+
+  detallePagos DetallePago[]
+  retenciones  Retencion[]
+}
+
+model DetallePago {
+  id        Int      @id @default(autoincrement())
+  pagoId    Int
+  concepto  String?
+  monto     Float
+  facturaId Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  pago      Pago     @relation(fields: [pagoId], references: [id], onDelete: Cascade)
+}
+
+model Retencion {
+  id        Int      @id @default(autoincrement())
+  pagoId    Int
+  tipo      String
+  tasa      Float
+  monto     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  pago      Pago     @relation(fields: [pagoId], references: [id], onDelete: Cascade)
+}
+
+model DetalleFactura {
+  id             Int      @id @default(autoincrement())
+  facturaId      Int
+  producto       String
+  cantidad       Int
+  precioUnitario Float
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  factura        Factura  @relation(fields: [facturaId], references: [id], onDelete: Cascade)
+}
+
+model Impuesto {
+  id        Int      @id @default(autoincrement())
+  facturaId Int
+  tipo      String
+  tasa      Float
+  monto     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  factura   Factura  @relation(fields: [facturaId], references: [id], onDelete: Cascade)
+}
