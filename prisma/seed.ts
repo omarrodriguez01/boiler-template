@@ -9,7 +9,6 @@ const prisma = new PrismaClient()
 
 
 async function main() {
-    // await studentSeeder();
     // await peliculasSeeders();
     // await salasSeeders();
     // await boletasSeeders();
