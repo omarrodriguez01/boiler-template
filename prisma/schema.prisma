@@ -9,3 +9,67 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Guest {
+  id          Int      @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  email       String   @unique
+  phoneNumber String
+  address     String
+
+  bookings    Booking[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+}
+
+model Room {
+  roomNumber    Int     @id
+  roomType      String
+  occupancyLimit Int
+  pricePerNight Float
+  isAvailable   Boolean
+
+  bookings      Booking[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+
+}
+
+model Booking {
+  id           Int      @id @default(autoincrement())
+  checkInDate  DateTime
+  checkOutDate DateTime
+
+  guest        Guest    @relation(fields: [guestId], references: [id])
+  guestId      Int
+
+  room         Room     @relation(fields: [roomNumber], references: [roomNumber])
+  roomNumber   Int
+  payments     Payment[]
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+}
+
+model Service {
+  id     Int      @id @default(autoincrement())
+  name   String
+  price  Float
+  
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+}
+
+model Payment {
+  id            Int      @id @default(autoincrement())
+  paymentDate   DateTime
+  totalAmount   Float
+
+  booking       Booking  @relation(fields: [bookingId], references: [id])
+  bookingId     Int
+  
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+}
