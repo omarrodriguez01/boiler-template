@@ -27,7 +27,7 @@ model Doctors {
     createdAt     DateTime @default(now())
     updatedAt     DateTime @updatedAt
 
-    departments Departments @relation(fields: [department_id], references: [id])
+    departments Departments @relation(fields: [department_id], references: [id], onDelete: Cascade)
 
     Appointments  Appointments[]
     Prescriptions Prescriptions[]
@@ -58,8 +58,8 @@ model Appointments {
     createdAt        DateTime  @default(now())
     updatedAt        DateTime  @updatedAt
 
-    doctors  Doctors  @relation(fields: [doctor_id], references: [id])
-    patients Patients @relation(fields: [patient_id], references: [id])
+    doctors  Doctors  @relation(fields: [doctor_id], references: [id], onDelete: Cascade)
+    patients Patients @relation(fields: [patient_id], references: [id], onDelete: Cascade)
 }
 
 model Medications {
@@ -82,9 +82,9 @@ model Prescriptions {
     createdAt         DateTime  @default(now())
     updatedAt         DateTime  @updatedAt
 
-    doctors     Doctors     @relation(fields: [doctor_id], references: [id])
-    patients    Patients    @relation(fields: [patient_id], references: [id])
-    medications Medications @relation(fields: [medication_id], references: [id])
+    doctors     Doctors     @relation(fields: [doctor_id], references: [id], onDelete: Cascade)
+    patients    Patients    @relation(fields: [patient_id], references: [id], onDelete: Cascade)
+    medications Medications @relation(fields: [medication_id], references: [id], onDelete: Cascade)
 }
 
 model Lab_tests {
@@ -106,6 +106,6 @@ model Lab_results {
     createdAt    DateTime  @default(now())
     updatedAt    DateTime  @updatedAt
 
-    patients  Patients  @relation(fields: [patient_id], references: [id])
-    lab_tests Lab_tests @relation(fields: [lab_test_id], references: [id])
+    patients  Patients  @relation(fields: [patient_id], references: [id], onDelete: Cascade)
+    lab_tests Lab_tests @relation(fields: [lab_test_id], references: [id], onDelete: Cascade)
 }

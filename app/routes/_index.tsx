@@ -1,38 +1,34 @@
-import type { V2_MetaFunction } from "@remix-run/react";
+//app/routes/index.tsx
+import { useLoaderData, V2_MetaFunction } from "@remix-run/react";
+import PatientsTable from "~/components/PatientsTable";
+import { json, LoaderFunction } from "@remix-run/node";
+import { PrismaClient } from "@prisma/client"
+const prisma = new PrismaClient();
+
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: "New Remix App" }];
 };
 
+export const loader: LoaderFunction = async () => {
+  const response = await prisma.patients.findMany({
+    select: {
+      id: true,
+      first_name: true,
+      last_name: true,
+      date_of_birth: true,
+      gender: true,
+      address: true,
+      phone_number: true,
+    }
+  });
+  return json(response);
+};
+
 export default function Index() {
+  const data = useLoaderData();
+
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1>Welcome TODOS</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorialdnfjkdnb
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
-            Deep Dive Jokes App
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
-    </div>
+    <PatientsTable patients={[data]}></PatientsTable>
   );
 }
